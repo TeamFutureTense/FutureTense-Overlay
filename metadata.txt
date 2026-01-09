@@ -1,0 +1,8 @@
+Usecase: ingame
+Name:  FutureTense Overlay
+Version: Alpha 2026.01.09
+Author:  kimsseTheWolf
+CompatibleWith:  tosu
+Resolution:  1920 x 1080
+authorLinks:  ## Specify links via comma
+Notes: ## some markdown text
