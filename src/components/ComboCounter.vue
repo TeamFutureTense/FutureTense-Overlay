@@ -1,7 +1,56 @@
 <script setup>
+import { onMounted } from 'vue';
 import Circle from './Circle.vue';
 
+import { animate } from 'animejs';
 
+// animation
+function hideSubCounters() {
+
+    const els = document.querySelectorAll('.sub-counters');
+
+    animate(".sub-counters", {
+        scale: [1, 0],
+        duration: 450,
+        ease: "outBack(1.7)",
+        onComplete: ()=> {
+            animate(".sub-counters", {
+                width: el => [`${el.scrollWidth}px`, '0px'], // ← 关键：实时目标宽度
+                duration: 500,
+                ease: "outBack(1.7)"
+            })
+        }
+    })
+}
+
+function showSubCounters() {
+
+    const els = document.querySelectorAll('.sub-counters');
+
+    // 先把它们设到可测量状态（width=0 也可测 scrollWidth）
+    els.forEach(el => {
+        el.style.display = 'inline-block';
+        el.style.whiteSpace = 'nowrap';
+        el.style.overflow = 'hidden';
+    });
+
+    animate(els, {
+        width: el => ['0px', `${el.scrollWidth}px`], // ← 关键：实时目标宽度
+        duration: 500,
+        ease: "outBack(1.7)",
+        onComplete: ()=> {
+            animate(".sub-counters", {
+                scale: [0, 1],
+                duration: 450,
+                ease: "outBack(1.7)"
+            })
+        }
+    })
+}
+
+onMounted(()=>{
+    
+})
 </script>
 <template>
     <div class="combo-counter-container">
@@ -15,13 +64,13 @@ import Circle from './Circle.vue';
         </div>
         <div class="sub-status">
             <Circle color="#AEDDFF"/>
-            <div style="font-size: 18; font-weight: bold; color: #AEDDFF;">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #AEDDFF;" class="sub-counters">80</div>
             <Circle color="#AEFFB2"/>
-            <div style="font-size: 18; font-weight: bold; color: #AEFFB2;">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #AEFFB2;" class="sub-counters">80</div>
             <Circle color="#FFFEAE"/>
-            <div style="font-size: 18; font-weight: bold; color: #FFFEAE;">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #FFFEAE;" class="sub-counters">80</div>
             <Circle color="#FFAEAE"/>
-            <div style="font-size: 18; font-weight: bold; color: #FFAEAE;">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #FFAEAE;" class="sub-counters">80</div>
         </div>
     </div>
 </template>
@@ -57,5 +106,10 @@ import Circle from './Circle.vue';
     align-items: center;
     padding: 0px 10px 0px 0px;
     gap: 10px;
+}
+.sub-counters {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 </style>
