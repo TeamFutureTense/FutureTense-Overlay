@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="js">
+import ComboCounter from './components/ComboCounter.vue';
+
+</script>
 
 <template>
   <div class="overlay-container">
-    <b>Overlay content goes here</b>
+    <ComboCounter></ComboCounter>
   </div>
 </template>
 
