@@ -9,12 +9,12 @@ function hideSubCounters() {
 
     const els = document.querySelectorAll('.sub-counters');
 
-    animate(".sub-counters", {
+    animate(els, {
         scale: [1, 0],
         duration: 450,
-        ease: "outBack(1.7)",
+        ease: "outQuad",
         onComplete: ()=> {
-            animate(".sub-counters", {
+            animate(els, {
                 width: el => [`${el.scrollWidth}px`, '0px'], // ← 关键：实时目标宽度
                 duration: 500,
                 ease: "outBack(1.7)"
@@ -48,9 +48,26 @@ function showSubCounters() {
     })
 }
 
+function hideCounter() {
+    animate(".combo-counter-container", {
+        opacity: [1, 0],
+        duration: 400,
+        ease: "outBack(1.7)",
+    })
+}
+
+function showCounter() {
+    animate(".combo-counter-container", {
+        opacity: [0, 1],
+        duration: 400,
+        ease: "outBack(1.7)",
+    })
+}
+
 onMounted(()=>{
     
 })
+
 </script>
 <template>
     <div class="combo-counter-container">
