@@ -108,9 +108,9 @@ function comboFlashAnimation() {
 
     animate('#combo-number', {
         color: [
-            'rgb(230,230,230)', // 平时
-            'rgb(233,246,255)', // 亮一下
-            'rgb(230,230,230)'  // 回去
+            'rgb(240,240,240)', // 平时
+            'rgb(255,255,255)', // 亮一下
+            'rgb(240,240,240)'  // 回去
         ],
         duration: 260,
         ease: "outQuad",
