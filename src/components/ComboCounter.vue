@@ -1,11 +1,29 @@
 <script setup>
-import { onMounted, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import Circle from './Circle.vue';
 
 import { animate } from 'animejs';
 
 const showCounter = defineModel('showCounter', {required: true, type: Boolean})
 const showSubCounter = defineModel('showSubCounter', {required: true, type: Boolean})
+
+const props = defineProps({
+    top: {
+        type: Number,
+    },
+    left: {
+        type: Number
+    },
+})
+
+// position values
+const top = computed(()=> {
+    return props.top + "px"
+})
+
+const left = computed(()=> {
+    return props.left + "px"
+})
 
 // animation
 function hideSubCountersAnimation() {
@@ -133,6 +151,10 @@ onMounted(()=>{
     flex-direction: column;
     justify-content: flex-end;
     padding: 10px;
+
+    position: absolute;
+    top: v-bind(top);
+    left: v-bind(left);
 }
 .combo-numbers {
     display: flex;
