@@ -102,6 +102,21 @@ function showCounterAnimation() {
     })
 }
 
+function comboFlashAnimation() {
+
+    console.log("Flash!")
+
+    animate('#combo-number', {
+        color: [
+            'rgb(230,230,230)', // 平时
+            'rgb(233,246,255)', // 亮一下
+            'rgb(230,230,230)'  // 回去
+        ],
+        duration: 260,
+        ease: "outQuad",
+    })
+}
+
 // Watchers for triggering show/hide animations according to states
 watch(showCounter, (newVal, oldVal) => {
     // show counter
@@ -125,6 +140,10 @@ watch(showSubCounter, (newVal, oldVal) => {
     else if (oldVal == true && newVal == false) {
         hideSubCountersAnimation()
     }
+})
+
+watch(()=>tosu.combo, (newVal, oldVal) => {
+    comboFlashAnimation()
 })
 
 onMounted(()=>{
@@ -193,7 +212,7 @@ onMounted(()=>{
     font-family: 'Octarine';
     font-size: 48px;
     font-weight: bold;
-    color: #ffffff;
+    color: rgb(220,220,220);
 }
 .sub-status {
     display: flex;
