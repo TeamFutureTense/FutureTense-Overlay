@@ -14,6 +14,21 @@ const props = defineProps({
     left: {
         type: Number
     },
+    totalCombo: {
+        type: Number
+    },
+    perfect: {
+        type: Number
+    },
+    good: {
+        type: Number
+    },
+    meh: {
+        type: Number
+    },
+    miss: {
+        type: Number
+    }
 })
 
 // position values
