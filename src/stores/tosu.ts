@@ -51,19 +51,19 @@ export const useTosuStore = defineStore("tosu", () => {
         return value !== undefined ? value : 0;
     })
     const osu_h300 = computed(() => {
-        const value = raw.value?.play?.combo?.hits?.["300"];
+        const value = raw.value?.play?.hits?.["300"];
         return value !== undefined ? value : 0;
     })
     const osu_h100 = computed(() => {
-        const value = raw.value?.play?.combo?.hits?.["100"];
+        const value = raw.value?.play?.hits?.["100"];
         return value !== undefined ? value : 0;
     })
     const osu_h50 = computed(() => {
-        const value = raw.value?.play?.combo?.hits?.["50"];
+        const value = raw.value?.play?.hits?.["50"];
         return value !== undefined ? value : 0;
     })
     const osu_miss = computed(() => {
-        const value = raw.value?.play?.combo?.hits?.["0"];
+        const value = raw.value?.play?.hits?.["0"];
         return value !== undefined ? value : 0;
     })
     const isBreak = computed(() => {

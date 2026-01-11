@@ -153,12 +153,15 @@ onMounted(()=>{
         <div class="sub-status">
             <Circle color="#AEDDFF"/>
             <div style="font-size: 18; font-weight: bold; color: #AEDDFF;" class="sub-counters">{{ tosu.osu_h300 }}</div>
-            <Circle color="#AEFFB2"/>
-            <div style="font-size: 18; font-weight: bold; color: #AEFFB2;" class="sub-counters">{{ tosu.osu_h100 }}</div>
-            <Circle color="#FFFEAE"/>
-            <div style="font-size: 18; font-weight: bold; color: #FFFEAE;" class="sub-counters">{{ tosu.osu_h50 }}</div>
-            <Circle color="#FFAEAE"/>
-            <div style="font-size: 18; font-weight: bold; color: #FFAEAE;" class="sub-counters">{{ tosu.osu_miss }}</div>
+
+            <Circle v-show="tosu.osu_h100 !== 0" color="#AEFFB2"/>
+            <div v-show="tosu.osu_h100 !== 0" style="font-size: 18; font-weight: bold; color: #AEFFB2;" class="sub-counters">{{ tosu.osu_h100 }}</div>
+
+            <Circle v-show="tosu.osu_h50 !== 0" color="#FFFEAE"/>
+            <div v-show="tosu.osu_h50 !== 0" style="font-size: 18; font-weight: bold; color: #FFFEAE;" class="sub-counters">{{ tosu.osu_h50 }}</div>
+            
+            <Circle v-show="tosu.osu_miss !== 0" color="#FFAEAE"/>
+            <div v-show="tosu.osu_miss !== 0" style="font-size: 18; font-weight: bold; color: #FFAEAE;" class="sub-counters">{{ tosu.osu_miss }}</div>
         </div>
     </div>
 </template>
