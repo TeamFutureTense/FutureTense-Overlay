@@ -1,11 +1,28 @@
 <script setup>
 import { computed, onMounted, watch } from 'vue';
 import Circle from './Circle.vue';
+import { useTosuStore } from '@/stores/tosu';
 
 import { animate } from 'animejs';
 
-const showCounter = defineModel('showCounter', {required: true, type: Boolean})
-const showSubCounter = defineModel('showSubCounter', {required: true, type: Boolean})
+const tosu = useTosuStore()
+
+const showCounter = computed(() => {
+    if (tosu.isInGame) {
+        return true
+    }
+    else {
+        return false
+    }
+})
+const showSubCounter = computed(() => {
+    if (tosu.isInGame && tosu.isBreak) {
+        return true
+    }
+    else {
+        return false
+    }
+})
 
 const props = defineProps({
     top: {
@@ -14,21 +31,6 @@ const props = defineProps({
     left: {
         type: Number
     },
-    totalCombo: {
-        type: Number
-    },
-    perfect: {
-        type: Number
-    },
-    good: {
-        type: Number
-    },
-    meh: {
-        type: Number
-    },
-    miss: {
-        type: Number
-    }
 })
 
 // position values
@@ -145,18 +147,18 @@ onMounted(()=>{
                 Combo
             </div>
             <div id="combo-number">
-                x100
+                x{{ tosu.combo }}
             </div>
         </div>
         <div class="sub-status">
             <Circle color="#AEDDFF"/>
-            <div style="font-size: 18; font-weight: bold; color: #AEDDFF;" class="sub-counters">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #AEDDFF;" class="sub-counters">{{ tosu.osu_h300 }}</div>
             <Circle color="#AEFFB2"/>
-            <div style="font-size: 18; font-weight: bold; color: #AEFFB2;" class="sub-counters">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #AEFFB2;" class="sub-counters">{{ tosu.osu_h100 }}</div>
             <Circle color="#FFFEAE"/>
-            <div style="font-size: 18; font-weight: bold; color: #FFFEAE;" class="sub-counters">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #FFFEAE;" class="sub-counters">{{ tosu.osu_h50 }}</div>
             <Circle color="#FFAEAE"/>
-            <div style="font-size: 18; font-weight: bold; color: #FFAEAE;" class="sub-counters">80</div>
+            <div style="font-size: 18; font-weight: bold; color: #FFAEAE;" class="sub-counters">{{ tosu.osu_miss }}</div>
         </div>
     </div>
 </template>

@@ -1,18 +1,26 @@
 <script setup lang="js">
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import ComboCounter from './components/ComboCounter.vue';
+import { useTosuStore } from './stores/tosu';
 
-const showCounter = ref(true)
-const showSubCounter = ref(true)
+const tosu = useTosuStore()
+
+// Build Connection when overlay is mounted
+onMounted(() => {
+  tosu.connect("127.0.0.1:24050", "v2")
+})
+
+// End connection safely before unmounted
+onBeforeUnmount(() => {
+  tosu.disconnect()
+})
 
 </script>
 
 <template>
   <div class="overlay-container">
     <ComboCounter 
-    v-model:showCounter="showCounter" 
-    v-model:showSubCounter="showSubCounter"
-    :left="20",
+    :left="20"
     :top="957"></ComboCounter>
   </div>
 </template>
