@@ -1,11 +1,17 @@
 <script setup lang="js">
+import { ref } from 'vue';
 import ComboCounter from './components/ComboCounter.vue';
+
+const showCounter = ref(false)
+const showSubCounter = ref(false)
 
 </script>
 
 <template>
   <div class="overlay-container">
-    <ComboCounter></ComboCounter>
+    <ComboCounter v-model:showCounter="showCounter" v-model:showSubCounter="showSubCounter"></ComboCounter>
+    <button @click="showCounter = !showCounter">Toggle Counter Visibility</button>
+    <button @click="showSubCounter = !showSubCounter">Toggle SubCounter Visibility</button>
   </div>
 </template>
 

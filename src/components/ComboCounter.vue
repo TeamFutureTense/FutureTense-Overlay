@@ -1,11 +1,14 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import Circle from './Circle.vue';
 
 import { animate } from 'animejs';
 
+const showCounter = defineModel('showCounter', {required: true, type: Boolean})
+const showSubCounter = defineModel('showSubCounter', {required: true, type: Boolean})
+
 // animation
-function hideSubCounters() {
+function hideSubCountersAnimation() {
 
     const els = document.querySelectorAll('.sub-counters');
 
@@ -23,7 +26,7 @@ function hideSubCounters() {
     })
 }
 
-function showSubCounters() {
+function showSubCountersAnimation() {
 
     const els = document.querySelectorAll('.sub-counters');
 
@@ -48,7 +51,7 @@ function showSubCounters() {
     })
 }
 
-function hideCounter() {
+function hideCounterAnimation() {
     animate(".combo-counter-container", {
         opacity: [1, 0],
         duration: 400,
@@ -56,7 +59,7 @@ function hideCounter() {
     })
 }
 
-function showCounter() {
+function showCounterAnimation() {
     animate(".combo-counter-container", {
         opacity: [0, 1],
         duration: 400,
@@ -64,7 +67,40 @@ function showCounter() {
     })
 }
 
+// Watchers for triggering show/hide animations according to states
+watch(showCounter, (newVal, oldVal) => {
+    // show counter
+    if (oldVal == false && newVal == true) {
+        showCounterAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal == true && newVal == false) {
+        hideCounterAnimation()
+    }
+})
+
+watch(showSubCounter, (newVal, oldVal) => {
+    // show counter
+    if (oldVal == false && newVal == true) {
+        showSubCountersAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal == true && newVal == false) {
+        hideSubCountersAnimation()
+    }
+})
+
 onMounted(()=>{
+
+    console.log("Processed")
+    if (showCounter.value == false) {
+        hideCounterAnimation()
+    }
+    if (showSubCounter.value == false) {
+        hideSubCountersAnimation()
+    }
     
 })
 
