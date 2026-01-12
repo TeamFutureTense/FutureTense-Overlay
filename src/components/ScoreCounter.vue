@@ -1,21 +1,67 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import SmallRankDisplay from './SmallRankDisplay.vue';
-
 import { useTosuStore } from '@/stores/tosu';
 
 const tosu = useTosuStore()
 
 const displayAcc = computed(() => {
     return tosu.currentAcc.toFixed(2)
-})  
+})
+
+// animated score
+const animatedScore = ref(0);
+
+// animation status
+let rafId = null;
+let startTime = 0;
+let startVal = 0;
+let endVal = 0;
+
+const DURATION = 220; 
+
+function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+}
+
+function tick(time) {
+    if (!startTime) startTime = time;
+
+    const progress = Math.min((time - startTime) / DURATION, 1);
+    const eased = easeOutCubic(progress);
+
+    animatedScore.value = Math.round(
+        startVal + (endVal - startVal) * eased
+    );
+
+    if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+    }
+}
+
+// initialization animated score
+animatedScore.value = tosu.currentScore ?? 0;
+
+// counting up scores
+watch(
+    () => tosu.currentScore,
+    (newScore) => {
+        cancelAnimationFrame(rafId);
+
+        startVal = animatedScore.value;
+        endVal = Number(newScore) || 0;
+        startTime = 0;
+
+        rafId = requestAnimationFrame(tick);
+    }
+);
 
 
 </script>
 <template>
     <div class="score-counter-container">
         <div id="score-title">Score</div>
-        <div id="score-count">{{ tosu.currentScore }}</div>
+        <div id="score-count">{{ animatedScore }}</div>
         <div class="small-score-panel">
             <div id="acc-count">
                 {{ displayAcc }}%

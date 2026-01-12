@@ -1,7 +1,9 @@
 <script setup>
 
 import { useTosuStore } from '@/stores/tosu';
-import { computed } from 'vue';
+import { computed, onMounted, ref, watch, onBeforeUnmount } from 'vue';
+import Circle from './Circle.vue';
+import { animate, timelin } from 'animejs';
 
 const tosu = useTosuStore()
 
@@ -35,10 +37,15 @@ const RankInfo = computed(() => {
     }
 })
 
+
+
 </script>
 <template>
-    <div class="small-rank-display-container">
-        {{ RankInfo.text }}
+    <div ref="pillEl" class="small-rank-display-container">
+        <div id="rank-text">{{ RankInfo.text }}</div>
+    </div>
+    <div ref="circleWrapEl" class="circle-wrap">
+        <Circle :color="RankInfo.color"/>
     </div>
 </template>
 <style scoped>
@@ -59,5 +66,21 @@ const RankInfo = computed(() => {
     font-family: 'Montserrat';
     font-size: 18px;
     font-weight: bold;
+
+    overflow: hidden;
+    transform-origin: right center;
+    will-change: width, height, padding, opacity;
+}
+
+#rank-text {
+    will-change: transform, opacity;
+    transform-origin: center;
+}
+
+.circle-wrap {
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: center;
+    will-change: transform, opacity;
 }
 </style>
