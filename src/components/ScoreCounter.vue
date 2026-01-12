@@ -1,14 +1,26 @@
 <script setup>
+import { computed } from 'vue';
+import SmallRankDisplay from './SmallRankDisplay.vue';
+
+import { useTosuStore } from '@/stores/tosu';
+
+const tosu = useTosuStore()
+
+const displayAcc = computed(() => {
+    return tosu.currentAcc.toFixed(2)
+})  
+
 
 </script>
 <template>
     <div class="score-counter-container">
         <div id="score-title">Score</div>
-        <div id="score-count">12,341,234,123</div>
+        <div id="score-count">{{ tosu.currentScore }}</div>
         <div class="small-score-panel">
             <div id="acc-count">
-                100.00%
+                {{ displayAcc }}%
             </div>
+            <SmallRankDisplay/>
         </div>
     </div>
 </template>

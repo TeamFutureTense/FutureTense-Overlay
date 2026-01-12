@@ -71,6 +71,24 @@ export const useTosuStore = defineStore("tosu", () => {
         return value !== undefined ? value : false;
     });
 
+    const rankCurrent = computed(() => {
+        const value = raw.value?.play?.rank?.current;
+        return value !== undefined ? value : "D";
+    });
+    const rankResult = computed(() => {
+        const value = raw.value?.resultsScreen?.rank;
+        return value !== undefined ? value : "D";
+    });
+    const currentScore = computed(() => {
+        const value = raw.value?.play?.score;
+        return value !== undefined ? value : 0;
+    });
+    const currentAcc = computed(() => {
+        const value = raw.value?.play?.accuracy;
+        return value !== undefined ? value : 0;
+    });
+
+
     return { 
         connected, 
         lastUpdate, 
@@ -83,6 +101,10 @@ export const useTosuStore = defineStore("tosu", () => {
         osu_h100,
         osu_h50,
         osu_miss,
-        isBreak
+        isBreak,
+        rankCurrent,
+        rankResult,
+        currentScore,
+        currentAcc
     };
 });
