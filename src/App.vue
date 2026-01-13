@@ -23,7 +23,7 @@ onBeforeUnmount(() => {
     <ComboCounter 
     :left="20"
     :top="957"></ComboCounter>
-    <ScoreCounter/>
+    <ScoreCounter :top="25" :right="10"/>
   </div>
 </template>
 

@@ -1,13 +1,44 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import SmallRankDisplay from './SmallRankDisplay.vue';
 import { useTosuStore } from '@/stores/tosu';
 import { animate } from 'animejs';
+
+const props = defineProps({
+    top: {
+        type: Number,
+    },
+    right: {
+        type: Number
+    },
+})
+
+const top = computed(()=> {
+    return props.top + "px"
+})
+
+const right = computed(()=> {
+    return props.right + "px"
+})
 
 const tosu = useTosuStore()
 
 const displayAcc = computed(() => {
     return tosu.currentAcc.toFixed(2)
+})
+
+const displayPP = computed(() => {
+    if (tosu.isInGame) {
+        if (tosu.isBreak) {
+            return tosu.currentPP
+        }
+        else {
+            return "--"
+        }
+    }
+    else {
+        return "--"
+    }
 })
 
 // animated score
@@ -101,12 +132,108 @@ watch(showCounter, (newVal, oldVal) => {
     }
 })
 
+// icon show / hide logic
+function hideIconsAnimation() {
+
+    const els = document.querySelectorAll('.icons');
+    console.log("hide Animation")
+
+    animate(els, {
+        scale: [1, 0],
+        duration: 450,
+        ease: "outQuad",
+        onComplete: ()=> {
+            animate(els, {
+                width: el => [`${el.scrollWidth}px`, '0px'],
+                duration: 500,
+                ease: "outBack(1.7)",
+                onComplete: ()=> {
+                    // 动画完成后彻底隐藏元素
+                    els.forEach(el => {
+                        el.style.display = 'none';
+                    });
+                }
+            })
+        }
+    })
+}
+
+function showIconsAnimation() {
+
+    console.log("show animation")
+
+    const els = document.querySelectorAll('.icons');
+
+    // 先显示元素并设置为可测量状态
+    els.forEach(el => {
+        el.style.display = 'inline-block';
+        el.style.whiteSpace = 'nowrap';
+        el.style.overflow = 'hidden';
+        el.style.width = '0px';
+    });
+
+    animate(els, {
+        width: el => ['0px', `${el.scrollWidth}px`],
+        duration: 500,
+        ease: "outBack(1.7)",
+        onComplete: ()=> {
+            animate(".icons", {
+                scale: [0, 1],
+                duration: 450,
+                ease: "outBack(1.7)"
+            })
+        }
+    })
+}
+
+const showIcons = computed(() => {
+    const result = tosu.isInGame && tosu.isBreak
+    console.log('showIcons computed:', { isInGame: tosu.isInGame, isBreak: tosu.isBreak, result })
+    return result
+})
+
+watch(showIcons, (newVal, oldVal) => {
+    console.log('showIcons watch triggered:', { oldVal, newVal })
+    // show counter
+    if (oldVal == false && newVal == true) {
+        console.log('Calling showIconsAnimation')
+        showIconsAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal == true && newVal == false) {
+        console.log('Calling hideIconsAnimation')
+        hideIconsAnimation()
+    }
+}, { immediate: true })
+
+onMounted(()=>{
+
+    console.log("Processed score")
+    if (showCounter.value == false) {
+        hideCounterAnimation()
+    }
+    if (showIcons.value == false) {
+        hideIconsAnimation()
+    }
+    
+})
+
 </script>
 <template>
     <div class="score-counter-container">
         <div id="score-title">Score</div>
         <div id="score-count">{{ formattedScore }}</div>
         <div class="small-score-panel">
+            <div class="icons">
+                <img src="@/assets/icons/line-chart-fill.svg" height="24px"/>
+            </div>
+            <div id="acc-count">
+                {{ displayPP }}pp
+            </div>
+            <div class="icons">
+                <img src="@/assets/icons/focus-2-fill.svg" height="24px"/>
+            </div>
             <div id="acc-count">
                 {{ displayAcc }}%
             </div>
@@ -117,8 +244,8 @@ watch(showCounter, (newVal, oldVal) => {
 <style scoped>
 .score-counter-container {
     position: absolute;
-    top: 25px;
-    right: 10px;
+    top: v-bind("top");
+    right: v-bind("right");
 
     display: flex;
     flex-direction: column;

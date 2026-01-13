@@ -88,6 +88,15 @@ export const useTosuStore = defineStore("tosu", () => {
         return value !== undefined ? value : 0;
     });
 
+    const currentPP = computed(() => {
+        const value = raw.value?.play?.pp?.current;
+        return value !== undefined ? value : 0;
+    });
+    const fcPP = computed(() => {
+        const value = raw.value?.play?.pp?.fc;
+        return value !== undefined ? value : 0;
+    });
+
 
     return { 
         connected, 
@@ -105,6 +114,8 @@ export const useTosuStore = defineStore("tosu", () => {
         rankCurrent,
         rankResult,
         currentScore,
-        currentAcc
+        currentAcc,
+        currentPP,
+        fcPP
     };
 });
