@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import SmallRankDisplay from './SmallRankDisplay.vue';
 import { useTosuStore } from '@/stores/tosu';
+import { animate } from 'animejs';
 
 const tosu = useTosuStore()
 
@@ -61,6 +62,44 @@ watch(
     }
 );
 
+// Hide and show animations
+function hideCounterAnimation() {
+    animate(".score-counter-container", {
+        opacity: [1, 0],
+        duration: 400,
+        ease: "outBack(1.7)",
+    })
+}
+
+function showCounterAnimation() {
+    animate(".score-counter-container", {
+        opacity: [0, 1],
+        duration: 400,
+        ease: "outBack(1.7)",
+    })
+}
+
+// Watchers for triggering show/hide animations according to states
+const showCounter = computed(() => {
+    if (tosu.isInGame) {
+        return true
+    }
+    else {
+        return false
+    }
+})
+
+watch(showCounter, (newVal, oldVal) => {
+    // show counter
+    if (oldVal == false && newVal == true) {
+        showCounterAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal == true && newVal == false) {
+        hideCounterAnimation()
+    }
+})
 
 </script>
 <template>
