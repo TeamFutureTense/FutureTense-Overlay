@@ -1,4 +1,21 @@
-# .
+# Future Tense Overlay (Future Tense Hydrogen)
+
+This is the official repository for Future Tense Overlay. This overlay is still a work in progress and undergoing constant changing. Unstable or other issues expected.
+
+## Tasks need to be completed
+
+- [ ] Basic Components
+  - Combo Counter (Combo / Breakdown)
+  - Score Counter (Score / Acc / PP / Mods)
+  - Metadata Display (Song cover / Song title / Artist / Mapper / Length / Progress / Difficulty + Name / BG)
+  - Health Display
+  - Key Overlay
+- [ ] More components
+  - Accuracy Meter
+  - Leaderboards
+- [ ] Result Screen Components (Comming soon)
+
+# Setup
 
 This template should help get you started developing with Vue 3 in Vite.
 
