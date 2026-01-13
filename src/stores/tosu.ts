@@ -97,6 +97,11 @@ export const useTosuStore = defineStore("tosu", () => {
         return value !== undefined ? value : 0;
     });
 
+    const beatmapStatus = computed(() => {
+        const value = raw.value?.beatmap?.status?.name;
+        return value !== undefined ? value : "unknown";
+    })
+
 
     return { 
         connected, 
@@ -116,6 +121,7 @@ export const useTosuStore = defineStore("tosu", () => {
         currentScore,
         currentAcc,
         currentPP,
-        fcPP
+        fcPP,
+        beatmapStatus
     };
 });
