@@ -12,6 +12,11 @@ const displayAcc = computed(() => {
 // animated score
 const animatedScore = ref(0);
 
+// format score with commas
+const formattedScore = computed(() => {
+    return animatedScore.value.toLocaleString('en-US')
+})
+
 // animation status
 let rafId = null;
 let startTime = 0;
@@ -61,7 +66,7 @@ watch(
 <template>
     <div class="score-counter-container">
         <div id="score-title">Score</div>
-        <div id="score-count">{{ animatedScore }}</div>
+        <div id="score-count">{{ formattedScore }}</div>
         <div class="small-score-panel">
             <div id="acc-count">
                 {{ displayAcc }}%
