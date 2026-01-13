@@ -1,6 +1,7 @@
 <script setup lang="js">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import ComboCounter from './components/ComboCounter.vue';
+import ScoreCounter from './components/ScoreCounter.vue';
 import { useTosuStore } from './stores/tosu';
 
 const tosu = useTosuStore()
@@ -22,6 +23,7 @@ onBeforeUnmount(() => {
     <ComboCounter 
     :left="20"
     :top="957"></ComboCounter>
+    <ScoreCounter :top="25" :right="10"/>
   </div>
 </template>
 
