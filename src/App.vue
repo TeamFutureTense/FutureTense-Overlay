@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import ComboCounter from './components/ComboCounter.vue';
 import ScoreCounter from './components/ScoreCounter.vue';
 import { useTosuStore } from './stores/tosu';
+import TextCarousal from './components/TextCarousal.vue';
 
 const tosu = useTosuStore()
 
