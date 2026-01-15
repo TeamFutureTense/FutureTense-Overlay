@@ -8,6 +8,14 @@ import { useTosuStore } from '@/stores/tosu';
 
 const tosu = useTosuStore()
 
+function msToMMSS(ms) {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
 const currSongTitle = computed(() => {
     console.log(tosu.beatmapTitle)
     return tosu.beatmapTitle === "" ? "Currently Not Playing!" : tosu.beatmapTitle
@@ -19,6 +27,14 @@ const currArtist = computed(() => {
 
 const currMapper = computed(() => {
     return tosu.beatmapMapper === "" ? "Unknown Mapper" : tosu.beatmapMapper
+})
+
+const currDuration = computed(() => {
+    return msToMMSS(tosu.beatmapCurrDuration)
+})
+
+const totalDuration = computed(() => {
+    return msToMMSS(tosu.beatmapDuration)
 })
 
 
@@ -42,6 +58,9 @@ const currMapper = computed(() => {
                 <div class="difficulty-panel">
                     <DifficultyPill/>
                     <RankPill/>
+                </div>
+                <div style="margin-top: 5px;">
+                    {{ currDuration }} / {{ totalDuration }}
                 </div>
             </div>
         </div>

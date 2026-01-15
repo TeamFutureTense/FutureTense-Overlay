@@ -121,6 +121,14 @@ export const useTosuStore = defineStore("tosu", () => {
         const value = raw.value?.beatmap?.status?.name;
         return value !== undefined ? value : "unknown";
     })
+    const beatmapDuration = computed(() => {
+        const value = raw.value?.beatmap?.time?.mp3Length;
+        return value !== undefined ? value : 0;
+    })
+    const beatmapCurrDuration = computed(() => {
+        const value = raw.value?.beatmap?.time?.live;
+        return value !== undefined ? value : 0;
+    })
 
 
     return { 
@@ -147,6 +155,8 @@ export const useTosuStore = defineStore("tosu", () => {
         beatmapArtist,
         beatmapMapper,
         beatmapDiff,
-        beatmapDiffName
+        beatmapDiffName,
+        beatmapDuration,
+        beatmapCurrDuration
     };
 });
