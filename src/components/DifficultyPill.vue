@@ -149,6 +149,24 @@ const minorColor = computed(() => {
     const hsl = hexToHSL(majorColor.value);
     return hslToHex(hsl.h, 21, 16);
 })
+
+const textColor = computed(() => {
+    if (tosu.beatmapDiff > 6.5) {
+        return "#FED866"
+    }
+    else {
+        return "black"
+    }
+})
+
+const diffTextColor = computed(() => {
+    if (tosu.beatmapDiff > 6.5) {
+        return "#FED866"
+    }
+    else {
+        return majorColor.value
+    }
+})
 </script>
 <template>
     <div class="diff-panel-container">
@@ -184,7 +202,7 @@ const minorColor = computed(() => {
     align-self: stretch;
     z-index: 2;
     background-color: v-bind(majorColor);
-    color: black;
+    color: v-bind(textColor);
 }
 .diff-name-container {
     height: 30px;
@@ -198,6 +216,6 @@ const minorColor = computed(() => {
     margin: 0px -30px;
     z-index: 1;
     background-color: v-bind(minorColor);
-    color: v-bind(majorColor);
+    color: v-bind(diffTextColor);
 }
 </style>
