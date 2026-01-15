@@ -1,7 +1,25 @@
 <script setup>
+import { computed } from 'vue';
 import DifficultyPill from './DifficultyPill.vue';
 import RankPill from './RankPill.vue';
 import TextCarousal from './TextCarousal.vue';
+
+import { useTosuStore } from '@/stores/tosu';
+
+const tosu = useTosuStore()
+
+const currSongTitle = computed(() => {
+    console.log(tosu.beatmapTitle)
+    return tosu.beatmapTitle === "" ? "Currently Not Playing!" : tosu.beatmapTitle
+})
+
+const currArtist = computed(() => {
+    return tosu.beatmapArtist === "" ? "Unknown Artist" : tosu.beatmapArtist
+})
+
+const currMapper = computed(() => {
+    return tosu.beatmapMapper === "" ? "Unknown Mapper" : tosu.beatmapMapper
+})
 
 
 </script>
@@ -13,12 +31,12 @@ import TextCarousal from './TextCarousal.vue';
             <div class="info-panel">
                 <div id="song-title">
                     <TextCarousal :max-width="350" :gap="100" :speed="5" :delay="5">
-                        Currently Not Playing
+                        {{ currSongTitle }}
                     </TextCarousal>
                 </div>
                 <div id="artist-information">
                     <TextCarousal :max-width="400" :gap="100" :speed="5" :delay="5">
-                        Unknown Artist // Unknown Mapper
+                        {{ currArtist }} // {{ currMapper }}
                     </TextCarousal>
                 </div>
                 <div class="difficulty-panel">

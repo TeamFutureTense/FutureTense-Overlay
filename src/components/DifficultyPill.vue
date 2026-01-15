@@ -1,5 +1,26 @@
 <script setup>
+import { useTosuStore } from '@/stores/tosu';
+import { computed } from 'vue';
 
+const tosu = useTosuStore()
+
+const currDiff = computed(() => {
+    if (tosu.beatmapDiff === "") {
+        return "0.00"
+    }
+    else {
+        return tosu.beatmapDiff.toFixed(2)
+    }
+})
+
+const currDiffname = computed(() => {
+    if (tosu.beatmapDiffName === "") {
+        return "Unknown Difficulty"
+    }
+    else {
+        return tosu.beatmapDiffName
+    }
+})
 </script>
 <template>
     <div class="diff-panel-container">

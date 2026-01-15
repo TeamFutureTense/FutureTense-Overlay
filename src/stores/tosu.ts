@@ -97,6 +97,26 @@ export const useTosuStore = defineStore("tosu", () => {
         return value !== undefined ? value : 0;
     });
 
+    const beatmapTitle = computed(() => {
+        const value = raw.value?.beatmap?.title;
+        return value !== undefined ? value : ""
+    })
+    const beatmapArtist = computed(() => {
+        const value = raw.value?.beatmap?.artist;
+        return value !== undefined ? value : ""
+    })
+    const beatmapMapper = computed(() => {
+        const value = raw.value?.beatmap?.mapper;
+        return value !== undefined ? value : ""
+    })
+    const beatmapDiff = computed(() => {
+        const value = raw.value?.beatmap?.stats?.stars?.total;
+        return value !== undefined ? value : 0
+    })
+    const beatmapDiffName = computed(() => {
+        const value = raw.value?.beatmap?.version;
+        return value !== undefined ? value : ""
+    })
     const beatmapStatus = computed(() => {
         const value = raw.value?.beatmap?.status?.name;
         return value !== undefined ? value : "unknown";
@@ -122,6 +142,11 @@ export const useTosuStore = defineStore("tosu", () => {
         currentAcc,
         currentPP,
         fcPP,
-        beatmapStatus
+        beatmapStatus,
+        beatmapTitle,
+        beatmapArtist,
+        beatmapMapper,
+        beatmapDiff,
+        beatmapDiffName
     };
 });
