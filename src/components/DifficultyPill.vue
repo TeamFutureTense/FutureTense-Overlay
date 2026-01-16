@@ -150,6 +150,11 @@ const minorColor = computed(() => {
     return hslToHex(hsl.h, 21, 16);
 })
 
+const backgroundColor = computed(() => {
+    const hsl = hexToHSL(majorColor.value);
+    return hslToHex(hsl.h, 100, 84);
+})
+
 const textColor = computed(() => {
     if (tosu.beatmapDiff > 6.5) {
         return "#FED866"
@@ -201,8 +206,8 @@ const diffTextColor = computed(() => {
     gap: 5px;
     align-self: stretch;
     z-index: 2;
-    background-color: v-bind(majorColor);
-    color: v-bind(textColor);
+    background-color: v-bind(backgroundColor);
+    color: #2a2a2a;
 }
 .diff-name-container {
     height: 30px;
@@ -216,6 +221,6 @@ const diffTextColor = computed(() => {
     margin: 0px -30px;
     z-index: 1;
     background-color: v-bind(minorColor);
-    color: v-bind(diffTextColor);
+    color: v-bind(backgroundColor);
 }
 </style>
