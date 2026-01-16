@@ -34,6 +34,10 @@ const RankInfo = computed(() => {
     else if (tosu.rankCurrent === "F") {
         return {text: "F", color: "#FFAEAE"}
     }
+    else {
+        // 默认返回 D 等级，避免 undefined 错误
+        return {text: "D", color: "#FFAEAE"}
+    }
 })
 
 

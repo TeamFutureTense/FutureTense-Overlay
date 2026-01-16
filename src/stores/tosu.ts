@@ -5,9 +5,36 @@ import WebSocketManager from "@/script/socket.js";
 export const useTosuStore = defineStore("tosu", () => {
     const connected = ref(false);
     const lastUpdate = ref(0);
+    const initialized = ref(false);
 
     // Prevent deep ref caused performance issues
-    const raw = shallowRef<any>(null);
+    // 提供完整的默认数据结构，避免 undefined 错误
+    const raw = shallowRef<any>({
+        state: { name: 'menu' },
+        play: {
+            combo: { current: 0 },
+            hits: { "300": 0, "100": 0, "50": 0, "0": 0 },
+            score: 0,
+            accuracy: 0,
+            pp: { current: 0, fc: 0 },
+            rank: { current: "D" }
+        },
+        beatmap: {
+            isBreak: false,
+            title: "",
+            artist: "",
+            mapper: "",
+            version: "",
+            status: { name: "unknown" },
+            stats: { stars: { total: 0 } },
+            time: { mp3Length: 0, live: 0 }
+        },
+        resultsScreen: {
+            rank: "D"
+        },
+        folders: { beatmap: "" },
+        files: { background: "" }
+    });
 
     // WebSocketManager Instance
     const manager = shallowRef<WebSocketManager | null>(null);
@@ -16,32 +43,74 @@ export const useTosuStore = defineStore("tosu", () => {
         (window as any).COUNTER_PATH ??= "/";
     }
 
+    // 深度合并函数，保护默认值不被覆盖为 undefined
+    function mergeDeep(target: any, source: any): any {
+        if (!source) return target;
+        
+        const output = { ...target };
+        
+        if (isObject(target) && isObject(source)) {
+            Object.keys(source).forEach(key => {
+                if (isObject(source[key])) {
+                    if (!(key in target)) {
+                        output[key] = source[key];
+                    } else {
+                        output[key] = mergeDeep(target[key], source[key]);
+                    }
+                } else {
+                    output[key] = source[key];
+                }
+            });
+        }
+        
+        return output;
+    }
+
+    function isObject(item: any): boolean {
+        return item && typeof item === 'object' && !Array.isArray(item);
+    }
+
     function connect(host = "127.0.0.1:24050", mode: "v1" | "v2" | "precise" = "v2", filters?: any[]) {
         ensureCounterPath();
 
         // Prevent redundent connections
-        if (manager.value) return;
+        if (manager.value) {
+            console.warn("Already connected, skipping");
+            return;
+        }
 
         const m = new (WebSocketManager as any)(host);
         manager.value = m;
 
         const handler = (data: any) => {
-            console.log(data)
-            raw.value = data;
-            lastUpdate.value = Date.now();
-            connected.value = true;
+            console.log("WebSocket data received:", data);
+            
+            if (data) {
+                // 使用深度合并而不是直接替换，保护默认值
+                raw.value = mergeDeep(raw.value, data);
+                lastUpdate.value = Date.now();
+                connected.value = true;
+                
+                if (!initialized.value) {
+                    initialized.value = true;
+                    console.log("Store initialized with data");
+                }
+            }
         };
 
         // Choose API
         if (mode === "v1") m.api_v1(handler, filters);
         else if (mode === "precise") m.api_v2_precise(handler, filters);
         else m.api_v2(handler, filters);
+
+        console.log(`Connecting to ${host} with mode ${mode}`);
     }
 
     function disconnect() {
         manager.value?.close((manager.value as any).host);
         manager.value = null;
         connected.value = false;
+        initialized.value = false;
     }
 
     // Exposed keys goes here
@@ -142,7 +211,8 @@ export const useTosuStore = defineStore("tosu", () => {
 
 
     return { 
-        connected, 
+        connected,
+        initialized, 
         lastUpdate, 
         raw, 
         connect, 
