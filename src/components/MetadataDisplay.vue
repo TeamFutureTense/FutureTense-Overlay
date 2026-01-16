@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watch } from 'vue';
+import { computed, watch, onMounted } from 'vue';
 import { animate } from 'animejs';
 import DifficultyPill from './DifficultyPill.vue';
 import RankPill from './RankPill.vue';
@@ -78,6 +78,15 @@ watch(showMetadata, (newVal, oldVal) => {
     else if (oldVal == true && newVal == false) {
         hideMetadataAnimation()
     }
+})
+
+onMounted(()=>{
+
+    console.log("Processed score")
+    if (showMetadata.value == false) {
+        hideMetadataAnimation()
+    }
+    
 })
 
 </script>

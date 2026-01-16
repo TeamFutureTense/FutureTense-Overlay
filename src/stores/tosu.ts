@@ -26,9 +26,10 @@ export const useTosuStore = defineStore("tosu", () => {
         manager.value = m;
 
         const handler = (data: any) => {
-        raw.value = data;
-        lastUpdate.value = Date.now();
-        connected.value = true;
+            console.log(data)
+            raw.value = data;
+            lastUpdate.value = Date.now();
+            connected.value = true;
         };
 
         // Choose API
