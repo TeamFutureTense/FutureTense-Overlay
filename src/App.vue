@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: #00000000;
   font-family: 'Octarine', sans-serif;
 }
 
