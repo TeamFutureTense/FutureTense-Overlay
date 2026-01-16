@@ -10,6 +10,8 @@ import { useTosuStore } from '@/stores/tosu';
 const tosu = useTosuStore()
 
 function msToMMSS(ms) {
+    if (!ms || ms <= 0) return "0:00";
+    
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -18,24 +20,27 @@ function msToMMSS(ms) {
 }
 
 const currSongTitle = computed(() => {
-    console.log(tosu.beatmapTitle)
-    return tosu.beatmapTitle === "" ? "Currently Not Playing!" : tosu.beatmapTitle
+    const title = tosu.beatmapTitle || "";
+    console.log("Current title:", title);
+    return title === "" ? "Currently Not Playing!" : title;
 })
 
 const currArtist = computed(() => {
-    return tosu.beatmapArtist === "" ? "Unknown Artist" : tosu.beatmapArtist
+    const artist = tosu.beatmapArtist || "";
+    return artist === "" ? "Unknown Artist" : artist;
 })
 
 const currMapper = computed(() => {
-    return tosu.beatmapMapper === "" ? "Unknown Mapper" : tosu.beatmapMapper
+    const mapper = tosu.beatmapMapper || "";
+    return mapper === "" ? "Unknown Mapper" : mapper;
 })
 
 const currDuration = computed(() => {
-    return msToMMSS(tosu.beatmapCurrDuration)
+    return msToMMSS(tosu.beatmapCurrDuration);
 })
 
 const totalDuration = computed(() => {
-    return msToMMSS(tosu.beatmapDuration)
+    return msToMMSS(tosu.beatmapDuration);
 })
 
 const backgroundUrl = computed(() => {
@@ -44,19 +49,14 @@ const backgroundUrl = computed(() => {
 })
 
 const showMetadata = computed(() => {
-    if (tosu.isInGame) {
-        return true
-    }
-    else {
-        return false
-    }
+    return tosu.isInGame === true;
 })
 
 function hideMetadataAnimation() {
     animate(".metadata-container", {
         opacity: [1, 0],
         duration: 400,
-        ease: "outBack(1.7)",
+        easing: "easeOutQuart",
     })
 }
 
@@ -64,29 +64,28 @@ function showMetadataAnimation() {
     animate(".metadata-container", {
         opacity: [0, 1],
         duration: 400,
-        ease: "outBack(1.7)",
+        easing: "easeOutQuart",
     })
 }
 
 watch(showMetadata, (newVal, oldVal) => {
     // show counter
-    if (oldVal == false && newVal == true) {
+    if (oldVal === false && newVal === true) {
         showMetadataAnimation()
     }
     
     // hide counter
-    else if (oldVal == true && newVal == false) {
+    else if (oldVal === true && newVal === false) {
         hideMetadataAnimation()
     }
 })
 
-onMounted(()=>{
-
-    console.log("Processed score")
-    if (showMetadata.value == false) {
+onMounted(() => {
+    console.log("MetadataDisplay mounted, initialized:", tosu.initialized);
+    
+    if (showMetadata.value === false) {
         hideMetadataAnimation()
     }
-    
 })
 
 </script>
