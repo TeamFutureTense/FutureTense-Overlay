@@ -129,6 +129,15 @@ export const useTosuStore = defineStore("tosu", () => {
         const value = raw.value?.beatmap?.time?.live;
         return value !== undefined ? value : 0;
     })
+    const beatmapBg = computed(() => {
+        const folder = raw.value?.folders?.beatmap;
+        const file = raw.value?.files?.background;
+        
+        if (!folder || !file) return "";
+        
+        const fullPath = encodeURIComponent(`${folder}/${file}`);
+        return `http://127.0.0.1:24050/Songs/${fullPath}`;
+    })
 
 
     return { 
@@ -157,6 +166,7 @@ export const useTosuStore = defineStore("tosu", () => {
         beatmapDiff,
         beatmapDiffName,
         beatmapDuration,
-        beatmapCurrDuration
+        beatmapCurrDuration,
+        beatmapBg
     };
 });

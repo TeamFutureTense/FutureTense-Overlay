@@ -1,6 +1,7 @@
 <script setup>
 import { useTosuStore } from '@/stores/tosu';
 import { computed } from 'vue';
+import TextCarousal from './TextCarousal.vue';
 
 const tosu = useTosuStore()
 

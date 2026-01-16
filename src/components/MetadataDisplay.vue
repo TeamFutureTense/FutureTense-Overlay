@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import DifficultyPill from './DifficultyPill.vue';
 import RankPill from './RankPill.vue';
 import TextCarousal from './TextCarousal.vue';
@@ -35,6 +35,17 @@ const currDuration = computed(() => {
 
 const totalDuration = computed(() => {
     return msToMMSS(tosu.beatmapDuration)
+})
+
+const backgroundUrl = computed(() => {
+    const url = tosu.beatmapBg || '';
+    return url ? `url('${url}')` : 'none';
+})
+
+onMounted(() => {
+    setInterval(() => {
+        console.log("Bg: ", backgroundUrl.value)
+    }, 1000)
 })
 
 
@@ -96,6 +107,9 @@ const totalDuration = computed(() => {
     gap: 10px;
 
     background-color: #7a7a7a;
+    background-image: v-bind(backgroundUrl);
+    background-size: cover;
+    background-position: center;
 }
 .info-panel {
     display: flex;
