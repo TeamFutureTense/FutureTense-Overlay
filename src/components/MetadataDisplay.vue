@@ -1,5 +1,6 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, watch } from 'vue';
+import { animate } from 'animejs';
 import DifficultyPill from './DifficultyPill.vue';
 import RankPill from './RankPill.vue';
 import TextCarousal from './TextCarousal.vue';
@@ -40,6 +41,43 @@ const totalDuration = computed(() => {
 const backgroundUrl = computed(() => {
     const url = tosu.beatmapBg || '';
     return url ? `url('${url}')` : 'none';
+})
+
+const showMetadata = computed(() => {
+    if (tosu.isInGame) {
+        return true
+    }
+    else {
+        return false
+    }
+})
+
+function hideMetadataAnimation() {
+    animate(".metadata-container", {
+        opacity: [1, 0],
+        duration: 400,
+        ease: "outBack(1.7)",
+    })
+}
+
+function showMetadataAnimation() {
+    animate(".metadata-container", {
+        opacity: [0, 1],
+        duration: 400,
+        ease: "outBack(1.7)",
+    })
+}
+
+watch(showMetadata, (newVal, oldVal) => {
+    // show counter
+    if (oldVal == false && newVal == true) {
+        showMetadataAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal == true && newVal == false) {
+        hideMetadataAnimation()
+    }
 })
 
 </script>
