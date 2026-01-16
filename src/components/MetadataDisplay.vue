@@ -42,13 +42,6 @@ const backgroundUrl = computed(() => {
     return url ? `url('${url}')` : 'none';
 })
 
-onMounted(() => {
-    setInterval(() => {
-        console.log("Bg: ", backgroundUrl.value)
-    }, 1000)
-})
-
-
 </script>
 <template>
     <div class="metadata-container">
