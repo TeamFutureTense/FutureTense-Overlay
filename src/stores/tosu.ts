@@ -97,6 +97,48 @@ export const useTosuStore = defineStore("tosu", () => {
         return value !== undefined ? value : 0;
     });
 
+    const beatmapTitle = computed(() => {
+        const value = raw.value?.beatmap?.title;
+        return value !== undefined ? value : ""
+    })
+    const beatmapArtist = computed(() => {
+        const value = raw.value?.beatmap?.artist;
+        return value !== undefined ? value : ""
+    })
+    const beatmapMapper = computed(() => {
+        const value = raw.value?.beatmap?.mapper;
+        return value !== undefined ? value : ""
+    })
+    const beatmapDiff = computed(() => {
+        const value = raw.value?.beatmap?.stats?.stars?.total;
+        return value !== undefined ? value : 0
+    })
+    const beatmapDiffName = computed(() => {
+        const value = raw.value?.beatmap?.version;
+        return value !== undefined ? value : ""
+    })
+    const beatmapStatus = computed(() => {
+        const value = raw.value?.beatmap?.status?.name;
+        return value !== undefined ? value : "unknown";
+    })
+    const beatmapDuration = computed(() => {
+        const value = raw.value?.beatmap?.time?.mp3Length;
+        return value !== undefined ? value : 0;
+    })
+    const beatmapCurrDuration = computed(() => {
+        const value = raw.value?.beatmap?.time?.live;
+        return value !== undefined ? value : 0;
+    })
+    const beatmapBg = computed(() => {
+        const folder = raw.value?.folders?.beatmap;
+        const file = raw.value?.files?.background;
+        
+        if (!folder || !file) return "";
+        
+        const fullPath = encodeURIComponent(`${folder}/${file}`);
+        return `http://127.0.0.1:24050/Songs/${fullPath}`;
+    })
+
 
     return { 
         connected, 
@@ -116,6 +158,15 @@ export const useTosuStore = defineStore("tosu", () => {
         currentScore,
         currentAcc,
         currentPP,
-        fcPP
+        fcPP,
+        beatmapStatus,
+        beatmapTitle,
+        beatmapArtist,
+        beatmapMapper,
+        beatmapDiff,
+        beatmapDiffName,
+        beatmapDuration,
+        beatmapCurrDuration,
+        beatmapBg
     };
 });
