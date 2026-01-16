@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'Octarine';
-    src: url('@/assets/fonts/Octarine-Bold');
+    src: url('@/assets/fonts/Octarine-Bold.otf');
     font-weight: bold;
 }
 
 @font-face {
     font-family: 'Octarine';
-    src: url('@/assets/fonts/Octarine-Light');
+    src: url('@/assets/fonts/Octarine-Light.otf');
     font-weight: lighter;
 }
 
