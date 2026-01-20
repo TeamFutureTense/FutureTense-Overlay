@@ -6,6 +6,14 @@ const props = defineProps({
     progress: {
         type: Number,
         required: true
+    },
+    total: {
+        type: String,
+        required: true
+    },
+    current: {
+        type: String,
+        required: true
     }
 })
 
@@ -15,17 +23,38 @@ const currProgress = computed(() => {
 
 </script>
 <template>
-    <div class="progress-bar-container">
-        <div class="progress-bar"></div>
+    <div class="main-container">
+        <div class="length-display" v-if="true">
+            <div class="length-display-element">{{ props.current }}</div>
+            <div class="length-display-element">{{ props.total }}</div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+        </div>
     </div>
 </template>
 <style lang="css" scoped>
+.main-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    margin-top: 5px;
+    padding: 0px;
+}
+.length-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 275px;
+    font-size: 12px;
+}
 .progress-bar-container {
     margin: 0px;
+    margin-top: 2px;
     padding: 0px;
-    width: 250px;
-    min-width: 250px;
-    max-width: 250px;
+    width: 275px;
+    min-width: 275px;
+    max-width: 275px;
     height: 7px;
     border-radius: 7px;
     background-color: rgba(255, 255, 255, 0.5);

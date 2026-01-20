@@ -50,6 +50,7 @@ const backgroundUrl = computed(() => {
 })
 
 const showMetadata = computed(() => {
+    return true
     return tosu.isInGame === true;
 })
 
@@ -110,11 +111,7 @@ onMounted(() => {
                     <DifficultyPill/>
                     <RankPill/>
                 </div>
-                <div class="duration-display" style="margin-top: 5px;">
-                    <div style="text-align: left; min-width: 35px;">{{ currDuration }}</div>
-                    <ProgressBar :progress="tosu.beatmapCurrDuration / tosu.beatmapDuration"/>
-                    <div style="text-align: right;">{{ totalDuration }}</div>
-                </div>
+                <ProgressBar :current="currDuration" :total="totalDuration" :progress="tosu.beatmapCurrDuration / tosu.beatmapDuration"/>
             </div>
         </div>
     </div>
@@ -181,7 +178,7 @@ onMounted(() => {
     font-size: 18px;
     font-weight: bold;
     line-height: normal;
-    color: #9E9E9E;
+    color: rgba(255, 255, 255, 0.75);
 }
 #song-title {
     font-family: Octarine;
@@ -194,6 +191,6 @@ onMounted(() => {
     font-size: 18px;
     font-weight: bold;
     line-height: normal;
-    color: #9E9E9E;
+    color: rgba(255, 255, 255, 0.75);
 }
 </style>
