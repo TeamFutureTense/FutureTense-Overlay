@@ -6,6 +6,7 @@ import RankPill from './RankPill.vue';
 import TextCarousal from './TextCarousal.vue';
 
 import { useTosuStore } from '@/stores/tosu';
+import ProgressBar from './ProgressBar.vue';
 
 const tosu = useTosuStore()
 
@@ -109,8 +110,10 @@ onMounted(() => {
                     <DifficultyPill/>
                     <RankPill/>
                 </div>
-                <div style="margin-top: 5px;">
-                    {{ currDuration }} / {{ totalDuration }}
+                <div class="duration-display" style="margin-top: 5px;">
+                    <div style="text-align: left; min-width: 35px;">{{ currDuration }}</div>
+                    <ProgressBar :progress="tosu.beatmapCurrDuration / tosu.beatmapDuration"/>
+                    <div style="text-align: right;">{{ totalDuration }}</div>
                 </div>
             </div>
         </div>
@@ -162,6 +165,15 @@ onMounted(() => {
     align-items: center;
     padding: 0px 10px 0px 0px;
     gap: 25px;
+}
+.duration-display {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.duration-display > div {
+    min-width: 40px;
 }
 
 #container-title {
