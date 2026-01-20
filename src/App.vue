@@ -23,9 +23,9 @@ tosu.connect("127.0.0.1:24050", "v2", [
 const isReady = computed(() => tosu.initialized && tosu.connected)
 
 // 调试：监听状态变化
-watch(() => [tosu.initialized, tosu.connected, isReady.value], ([init, conn, ready]) => {
-  console.log('App.vue status:', { initialized: init, connected: conn, isReady: ready })
-}, { immediate: true })
+// watch(() => [tosu.initialized, tosu.connected, isReady.value], ([init, conn, ready]) => {
+//   console.log('App.vue status:', { initialized: init, connected: conn, isReady: ready })
+// }, { immediate: true })
 
 // End connection safely before unmounted
 onBeforeUnmount(() => {
