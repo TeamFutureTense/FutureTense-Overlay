@@ -178,7 +178,7 @@ onMounted(() => {
     font-size: 18px;
     font-weight: bold;
     line-height: normal;
-    color: #9E9E9E;
+    color: rgba(255, 255, 255, 0.75);
 }
 #song-title {
     font-family: Octarine;
@@ -191,6 +191,6 @@ onMounted(() => {
     font-size: 18px;
     font-weight: bold;
     line-height: normal;
-    color: #9E9E9E;
+    color: rgba(255, 255, 255, 0.75);
 }
 </style>
