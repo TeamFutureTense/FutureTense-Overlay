@@ -50,7 +50,6 @@ const backgroundUrl = computed(() => {
 })
 
 const showMetadata = computed(() => {
-    return true
     return tosu.isInGame === true;
 })
 
