@@ -54,7 +54,7 @@ onBeforeUnmount(() => {
     <ComboCounter 
     :left="20"
     :top="957"></ComboCounter>
-    <ScoreCounter :top="25" :right="10"/>
+    <ScoreCounter :top="15" :right="10"/>
     <MetadataDisplay/>
     <HPBar/>
   </div>
