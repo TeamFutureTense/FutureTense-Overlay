@@ -4,8 +4,11 @@ import ComboCounter from './components/ComboCounter.vue';
 import ScoreCounter from './components/ScoreCounter.vue';
 import { useTosuStore } from './stores/tosu';
 import MetadataDisplay from './components/MetadataDisplay.vue';
+import { useTosuPreciseStore } from './stores/tosuPrecise';
+import HPBar from './components/HPBar.vue';
 
 const tosu = useTosuStore()
+const tosuPrecise = useTosuPreciseStore()
 
 // 立即连接 WebSocket，不等待 onMounted
 tosu.connect("127.0.0.1:24050", "v2", [
@@ -19,13 +22,15 @@ tosu.connect("127.0.0.1:24050", "v2", [
   "directPath"
 ])
 
+tosuPrecise.connect("127.0.0.1:24050")
+
 // 检查是否准备就绪
 const isReady = computed(() => tosu.initialized && tosu.connected)
 
 // 调试：监听状态变化
-// watch(() => [tosu.initialized, tosu.connected, isReady.value], ([init, conn, ready]) => {
-//   console.log('App.vue status:', { initialized: init, connected: conn, isReady: ready })
-// }, { immediate: true })
+watch(() => [tosu.initialized, tosu.connected, isReady.value], ([init, conn, ready]) => {
+  console.log('App.vue status:', { initialized: init, connected: conn, isReady: ready })
+}, { immediate: true })
 
 // End connection safely before unmounted
 onBeforeUnmount(() => {
@@ -49,8 +54,9 @@ onBeforeUnmount(() => {
     <ComboCounter 
     :left="20"
     :top="957"></ComboCounter>
-    <ScoreCounter :top="25" :right="10"/>
+    <ScoreCounter :top="15" :right="10"/>
     <MetadataDisplay/>
+    <HPBar/>
   </div>
 </template>
 

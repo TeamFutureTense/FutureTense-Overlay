@@ -206,7 +206,7 @@ onMounted(()=>{
     font-family: 'Octarine';
     font-size: 18px;
     font-weight: bold;
-    color: #9e9e9e;
+    color: rgba(255, 255, 255, 0.75);
 }
 #combo-number {
     font-family: 'Octarine';

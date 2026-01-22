@@ -119,7 +119,7 @@ onMounted(() => {
 .metadata-container {
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 15px;
 
     display: flex;
     flex-direction: column;

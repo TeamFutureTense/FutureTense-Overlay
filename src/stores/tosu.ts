@@ -8,7 +8,6 @@ export const useTosuStore = defineStore("tosu", () => {
     const initialized = ref(false);
 
     // Prevent deep ref caused performance issues
-    // 提供完整的默认数据结构，避免 undefined 错误
     const raw = shallowRef<any>({
         state: { name: 'menu' },
         play: {
@@ -157,6 +156,10 @@ export const useTosuStore = defineStore("tosu", () => {
         const value = raw.value?.play?.accuracy;
         return value !== undefined ? value : 0;
     });
+    const currentHP = computed(() => {
+        const value = raw.value?.play?.healthBar?.smooth;
+        return value !== undefined ? value : 0;
+    })
 
     const currentPP = computed(() => {
         const value = raw.value?.play?.pp?.current;
@@ -238,6 +241,7 @@ export const useTosuStore = defineStore("tosu", () => {
         beatmapDiffName,
         beatmapDuration,
         beatmapCurrDuration,
-        beatmapBg
+        beatmapBg,
+        currentHP
     };
 });

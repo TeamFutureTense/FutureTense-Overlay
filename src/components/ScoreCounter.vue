@@ -266,7 +266,7 @@ onMounted(()=>{
 #score-title {
     font-size: 18px;
     font-weight: bold;
-    color: #9E9E9E;
+    color: rgba(255, 255, 255, 0.75);
 }
 
 #score-count {
@@ -278,6 +278,6 @@ onMounted(()=>{
 #acc-count {
     font-size: 18px;
     font-weight: bold;
-    color: #9E9E9E;
+    color: rgba(255, 255, 255, 0.75);
 }
 </style>
