@@ -23,5 +23,6 @@ const actualWidth = computed(() => {
     width: v-bind("actualWidth");
     height: 7px;
     background-color: white;
+    transition: width 0.2s ease-out;
 }
 </style>
