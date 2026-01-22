@@ -1,12 +1,53 @@
 <script setup>
 import { useTosuStore } from '@/stores/tosu';
-import { computed } from 'vue';
+import { computed, watch, onMounted } from 'vue';
+import { animate } from 'animejs';
 
 
 const tosu = useTosuStore()
 
 const actualWidth = computed(() => {
     return (tosu.currentHP).toFixed(2) + "%"
+})
+
+const showHPBar = computed(() => {
+    return tosu.isInGame === true;
+})
+
+function hideHPBarAnimation() {
+    animate(".hp-bar", {
+        opacity: [1, 0],
+        duration: 400,
+        easing: "easeOutQuart",
+    })
+}
+
+function showHPBarAnimation() {
+    animate(".hp-bar", {
+        opacity: [0, 1],
+        duration: 400,
+        easing: "easeOutQuart",
+    })
+}
+
+watch(showHPBar, (newVal, oldVal) => {
+    // show counter
+    if (oldVal === false && newVal === true) {
+        showHPBarAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal === true && newVal === false) {
+        hideHPBarAnimation()
+    }
+})
+
+onMounted(() => {
+    console.log("MetadataDisplay mounted, initialized:", tosu.initialized);
+    
+    if (showHPBar.value === false) {
+        hideHPBarAnimation()
+    }
 })
 
 </script>
