@@ -5,6 +5,7 @@ import ScoreCounter from './components/ScoreCounter.vue';
 import { useTosuStore } from './stores/tosu';
 import MetadataDisplay from './components/MetadataDisplay.vue';
 import { useTosuPreciseStore } from './stores/tosuPrecise';
+import HPBar from './components/HPBar.vue';
 
 const tosu = useTosuStore()
 const tosuPrecise = useTosuPreciseStore()
@@ -55,6 +56,7 @@ onBeforeUnmount(() => {
     :top="957"></ComboCounter>
     <ScoreCounter :top="25" :right="10"/>
     <MetadataDisplay/>
+    <HPBar/>
   </div>
 </template>
 
