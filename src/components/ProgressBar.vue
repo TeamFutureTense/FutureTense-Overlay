@@ -45,16 +45,16 @@ const currProgress = computed(() => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 275px;
-    font-size: 12px;
+    width: 350px;
+    font-size: 10px;
 }
 .progress-bar-container {
     margin: 0px;
     margin-top: 2px;
     padding: 0px;
-    width: 275px;
-    min-width: 275px;
-    max-width: 275px;
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
     height: 7px;
     border-radius: 7px;
     background-color: rgba(255, 255, 255, 0.5);
@@ -71,5 +71,7 @@ const currProgress = computed(() => {
     position: relative;
     top: 0;
     left: 0;
+
+    transition: all 0.3s;
 }
 </style>
