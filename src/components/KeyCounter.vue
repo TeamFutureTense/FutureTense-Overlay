@@ -1,10 +1,16 @@
 <script setup>
+import { useTosuPreciseStore } from '@/stores/tosuPrecise';
 import KeyCounterElement from './KeyCounterElement.vue';
+
+const tosuPrecise = useTosuPreciseStore()
 
 </script>
 <template>
     <div class="key-counters-container">
-        <KeyCounterElement v-for="i in [1,2,3,4]"></KeyCounterElement>
+        <KeyCounterElement :isPressed="tosuPrecise.keys.k1.isPressed" :count="tosuPrecise.keys.k1.count"/>
+        <KeyCounterElement :isPressed="tosuPrecise.keys.k2.isPressed" :count="tosuPrecise.keys.k2.count"/>
+        <KeyCounterElement :isPressed="tosuPrecise.keys.m1.isPressed" :count="tosuPrecise.keys.m1.count"/>
+        <KeyCounterElement :isPressed="tosuPrecise.keys.m2.isPressed" :count="tosuPrecise.keys.m2.count"/>
     </div>
 </template>
 <style lang="css" scoped>
