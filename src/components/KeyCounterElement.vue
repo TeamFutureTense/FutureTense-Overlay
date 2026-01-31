@@ -35,7 +35,7 @@ const edgeHeight = computed(() => {
 
 const backgroundColor = computed(() => {
     if (props.isPressed) {
-        return "rgba(255,255,255,0.2)"
+        return "rgba(255,255,255,0.6)"
     }
     else {
         return "rgba(255,255,255,0)"
