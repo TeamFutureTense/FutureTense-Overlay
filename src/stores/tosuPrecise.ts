@@ -90,7 +90,7 @@ export const useTosuPreciseStore = defineStore("tosuPrecise", () => {
         manager.value = m;
 
         const handler = (data: any) => {
-            console.log("Precise WebSocket data received:", data);
+            // console.log("Precise WebSocket data received:", data);
             
             if (data) {
                 // Merge data

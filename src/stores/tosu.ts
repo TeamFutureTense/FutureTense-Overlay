@@ -82,7 +82,7 @@ export const useTosuStore = defineStore("tosu", () => {
         manager.value = m;
 
         const handler = (data: any) => {
-            console.log("WebSocket data received:", data);
+            // console.log("WebSocket data received:", data);
             
             if (data) {
                 // 使用深度合并而不是直接替换，保护默认值
