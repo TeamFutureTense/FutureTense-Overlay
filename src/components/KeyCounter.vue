@@ -1,6 +1,49 @@
 <script setup>
 import { useTosuPreciseStore } from '@/stores/tosuPrecise';
+import { useTosuStore } from '@/stores/tosu';
 import KeyCounterElement from './KeyCounterElement.vue';
+import { computed, onMounted } from 'vue';
+import { animate } from 'animejs';
+
+const tosu = useTosuStore()
+
+const showKeyCounter = computed(() => {
+    return tosu.isInGame === true;
+})
+
+function hideKeyCounterAnimation() {
+    animate(".key-counters-container", {
+        opacity: [1, 0],
+        duration: 400,
+        easing: "easeOutQuart",
+    })
+}
+
+function showKeyCounterAnimation() {
+    animate(".key-counters-container", {
+        opacity: [0, 1],
+        duration: 400,
+        easing: "easeOutQuart",
+    })
+}
+
+watch(showKeyCounter, (newVal, oldVal) => {
+    // show counter
+    if (oldVal === false && newVal === true) {
+        showKeyCounterAnimation()
+    }
+    
+    // hide counter
+    else if (oldVal === true && newVal === false) {
+        hideKeyCounterAnimation()
+    }
+})
+
+onMounted(() => {
+    if (showKeyCounter.value === false) {
+        hideKeyCounterAnimation()
+    }
+})
 
 const tosuPrecise = useTosuPreciseStore()
 
