@@ -43,7 +43,6 @@ watch(showHPBar, (newVal, oldVal) => {
 })
 
 onMounted(() => {
-    console.log("MetadataDisplay mounted, initialized:", tosu.initialized);
     
     if (showHPBar.value === false) {
         hideHPBarAnimation()

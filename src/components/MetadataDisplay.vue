@@ -22,7 +22,6 @@ function msToMMSS(ms) {
 
 const currSongTitle = computed(() => {
     const title = tosu.beatmapTitle || "";
-    console.log("Current title:", title);
     return title === "" ? "Currently Not Playing!" : title;
 })
 
@@ -82,7 +81,6 @@ watch(showMetadata, (newVal, oldVal) => {
 })
 
 onMounted(() => {
-    console.log("MetadataDisplay mounted, initialized:", tosu.initialized);
     
     if (showMetadata.value === false) {
         hideMetadataAnimation()

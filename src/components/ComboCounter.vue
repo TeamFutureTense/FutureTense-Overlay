@@ -104,8 +104,6 @@ function showCounterAnimation() {
 
 function comboFlashAnimation() {
 
-    console.log("Flash!")
-
     animate('#combo-number', {
         color: [
             'rgb(240,240,240)', // 平时
@@ -148,7 +146,6 @@ watch(()=>tosu.combo, (newVal, oldVal) => {
 
 onMounted(()=>{
 
-    console.log("Processed")
     if (showCounter.value == false) {
         hideCounterAnimation()
     }

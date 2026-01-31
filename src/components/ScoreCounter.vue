@@ -136,7 +136,6 @@ watch(showCounter, (newVal, oldVal) => {
 function hideIconsAnimation() {
 
     const els = document.querySelectorAll('.icons');
-    console.log("hide Animation")
 
     animate(els, {
         scale: [1, 0],
@@ -159,8 +158,6 @@ function hideIconsAnimation() {
 }
 
 function showIconsAnimation() {
-
-    console.log("show animation")
 
     const els = document.querySelectorAll('.icons');
 
@@ -188,28 +185,23 @@ function showIconsAnimation() {
 
 const showIcons = computed(() => {
     const result = tosu.isInGame && tosu.isBreak
-    console.log('showIcons computed:', { isInGame: tosu.isInGame, isBreak: tosu.isBreak, result })
     return result
 })
 
 watch(showIcons, (newVal, oldVal) => {
-    console.log('showIcons watch triggered:', { oldVal, newVal })
     // show counter
     if (oldVal == false && newVal == true) {
-        console.log('Calling showIconsAnimation')
         showIconsAnimation()
     }
     
     // hide counter
     else if (oldVal == true && newVal == false) {
-        console.log('Calling hideIconsAnimation')
         hideIconsAnimation()
     }
 }, { immediate: true })
 
 onMounted(()=>{
 
-    console.log("Processed score")
     if (showCounter.value == false) {
         hideCounterAnimation()
     }
