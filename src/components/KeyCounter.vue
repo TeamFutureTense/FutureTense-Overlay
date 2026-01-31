@@ -2,7 +2,7 @@
 import { useTosuPreciseStore } from '@/stores/tosuPrecise';
 import { useTosuStore } from '@/stores/tosu';
 import KeyCounterElement from './KeyCounterElement.vue';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { animate } from 'animejs';
 
 const tosu = useTosuStore()
