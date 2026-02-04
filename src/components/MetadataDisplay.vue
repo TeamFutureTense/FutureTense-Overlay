@@ -151,7 +151,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     padding: 0px 10px 0px 0px;
-    gap: 5px;
+    gap: 4px;
 }
 .difficulty-panel {
     display: flex;

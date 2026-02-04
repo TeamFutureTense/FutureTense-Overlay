@@ -24,6 +24,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Octarine';
-    background-color: #2a2a2a00;
+    background-color: #2a2a2a;
     color: white;
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
 }
